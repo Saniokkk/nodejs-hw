@@ -1,0 +1,35 @@
+{
+  "name": "nodejs-hw-new",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js",
+    "start": "src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Saniokkk/nodejs-hw.git"
+  },
+  "keywords": [],
+  "author": "petro <js@js.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Saniokkk/nodejs-hw/issues"
+  },
+  "homepage": "https://github.com/Saniokkk/nodejs-hw#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "eslint": "^9.36.0",
+    "globals": "^16.4.0",
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "pino-http": "^10.5.0",
+    "pino-pretty": "^13.1.1"
+  }
+}
