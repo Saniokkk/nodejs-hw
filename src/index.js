@@ -1,16 +1,11 @@
-import path from 'node:path';
-console.log('path : ', path.resolve('src'));
-// src/server.js
 import express from 'express';
 import cors from 'cors';
 import pino from 'pino-http';
 
-// Ініціалізація Express
 
 const app = express();
 const PORT = 3000;
 
-// Middleware для парсингу JSON
 app.use(express.json());
 app.use(cors());
 app.use(
@@ -31,10 +26,10 @@ app.use(
 );
 
 
-app.get('/notes', async (req, res,) => {
+app.get('/notes', (req, res,) => {
 
-  res.json({
-    "message": "Retrieved all notes"
+  res.status(200).json({
+    message: "Retrieved all notes"
   });
 });
 
@@ -50,17 +45,14 @@ app.get('/test-error', () => {
 });
 
 
-// Middleware 404 (після всіх маршрутів)
 app.use((req, res) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
 app.use((err, req, res, _next) => {
   console.error(err.stack);
-  res.status(500).json({ error: err.message });
+  res.status(500).json({ message: err.message });
 });
-
-// Запуск сервера
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
