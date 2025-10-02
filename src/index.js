@@ -30,52 +30,32 @@ app.use(
   }),
 );
 
-// Логування часу
-app.use((req, res, next) => {
-  console.log(`Time: ${new Date().toLocaleString()}`);
-  next();
+
+app.get('/notes', async (req, res,) => {
+
+  res.json({
+    "message": "Retrieved all notes"
+  });
 });
 
-// Маршрут
-// app.get('/', (req, res) => {
-//   res.status(200).json({ message: 'Hello, World!' });
-// });
-
-app.get('/users/:userId/posts/:postId', (req, res) => {
-  const { userId } = req.params;
-  res.status(200).json({ message: `Hello, World! ${userId}` });
+app.get('/notes/:noteId', (req, res) => {
+  const { noteId } = req.params;
+  res.status(200).json({
+    message: `Retrieved note with ID: ${noteId}`
+  });
 });
 
-app.get('/', async (req, res) => {
-  // відхилений проміс / throw всередині async -> Express 5 передасть помилку в error middleware
-  const user = await Promise.reject('Something went wrong');
-  res.json(user);
+app.get('/test-error', () => {
+  throw new Error('Simulated server error');
 });
 
-app.get('/timeout', (req, res, next) => {
-  setTimeout(() => {
-    try {
-      throw new Error('Цю помилку треба ловити вручну');
-    } catch (err) {
-      next(err);
-    }
-  }, 100);
-  //   res.send('ok');
-});
-
-// app.get('/timeout', (req, res, next) => {
-//   setTimeout(() => {
-//     throw new Error('Цю помилку треба ловити вручну');
-//   }, 100);
-//   res.send('ok');
-// });
 
 // Middleware 404 (після всіх маршрутів)
 app.use((req, res) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
-app.use((err, req, res, next) => {
+app.use((err, req, res, _next) => {
   console.error(err.stack);
   res.status(500).json({ error: err.message });
 });
