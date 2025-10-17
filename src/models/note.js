@@ -1,17 +1,5 @@
 import { Schema, model } from "mongoose";
-
-const TAGS = [
-    'Work',
-    'Personal',
-    'Meeting',
-    'Shopping',
-    'Ideas',
-    'Travel',
-    'Finance',
-    'Health',
-    'Important',
-    'Todo',
-];
+import { TAGS } from "../constants/tags.js";
 
 const noteSchema = new Schema({
     title: {
@@ -29,5 +17,7 @@ const noteSchema = new Schema({
         default: "Todo"
     }
 }, { timestamps: true, versionKey: false, })
+
+noteSchema.index({ title: "text", content: "text" })
 
 export const Note = model("Note", noteSchema)
